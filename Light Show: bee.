@@ -1,0 +1,307 @@
+//bee. by GroovyDominoes52 0:00 to 1:06
+
+int doall=1;
+
+
+void setup() {
+  for(int i=2; i<=13; i++) {
+    pinMode(i, OUTPUT);
+  }
+  lightOnWave(1000, 2, 7, 1);
+}
+
+void lightSingle(int pin, int pause) {
+  digitalWrite(pin, HIGH);
+  delay(pause);
+  digitalWrite(pin, LOW);
+}
+
+void lightOn(int pause,int start, int stop) {
+  for(int i=start; i <=stop; i++) {
+	digitalWrite(i, HIGH);
+    delay(pause);
+  }
+}
+
+void lightOff(int pause,int start, int stop) {
+  for(int i=start; i <=stop; i++) {
+    digitalWrite(i, LOW);
+    delay(pause);
+  }
+}
+
+void lightFlash(int pause,int start, int stop) {
+  for(int i=start; i <=stop; i++) {
+	digitalWrite(i, HIGH);
+  }
+  delay(pause);
+  for(int i=start; i <=stop; i++) {
+	digitalWrite(i, LOW);
+  }
+}
+
+void lightOnWave(int pause, int start, int stop, int alt) {
+  if (alt ==1) {
+    for(int i=start; i <=stop; i+=2) {
+      digitalWrite(i, HIGH);
+      delay(pause);
+      digitalWrite(i,LOW);
+    }
+  }
+  else if (alt ==2){
+    for(int i=start; i <=stop; i++) {
+      int background = i+6;
+      digitalWrite(i, HIGH);
+      digitalWrite(background, HIGH);
+      delay(pause);
+      digitalWrite(i,LOW);
+      digitalWrite(background,LOW);
+    }
+  }
+  else if (alt == -1){
+    for(int i=start; i >=stop; i--) {
+      digitalWrite(i, HIGH);
+      delay(pause);
+      digitalWrite(i,LOW);
+    }
+  }
+  else {
+    for(int i=start; i <=stop; i++) {
+      digitalWrite(i, HIGH);
+      delay(pause);
+      digitalWrite(i,LOW);
+    }
+  }
+}
+
+void lightOnRed(int pause, int start, int stop, int setting) {
+  for(int i=start; i <=stop; i+=2) {
+    if (setting == 1) {
+      digitalWrite(i, HIGH);
+      delay(pause);
+    } else if (setting == 0) {
+      digitalWrite(i, LOW);
+      delay(pause);
+    }
+    else {
+      digitalWrite(i, HIGH);
+      delay(pause);
+      digitalWrite(i, LOW);
+    }
+  }
+}
+
+
+void lightOnBlue(int pause, int stop, int setting) {
+  for(int i=3; i <=stop; i+=2) {
+    if (setting == 1) {
+      digitalWrite(i, HIGH);
+      delay(pause);
+    } else if (setting == 0) {
+      digitalWrite(i, LOW);
+      delay(pause);
+    }
+    else {
+      digitalWrite(i, HIGH);
+      delay(pause);
+      digitalWrite(i, LOW);
+    }
+  }
+}
+
+void lightOnRand(int pause, int start, int stop) {
+  for(int i=0; i <=stop; i++) { 
+    int random = rand() % 5+ start;
+    digitalWrite(random, HIGH);
+    delay(pause);
+    digitalWrite(random,LOW);
+  }
+}
+
+void loop() {
+  if (doall == 1) {
+  //0:00 to 0:15
+  for(int i = 0; i<=7; i++) {
+    if (i % 2 == 1 ) {
+      lightOnWave(240, 2, 7, 0);
+      if(i <7) {
+        lightFlash(300, 8, 13);
+      	delay(100);
+      }
+      else {
+        delay(100);
+      }
+    }
+    else if (i % 2 == 0) {
+      lightOnWave(250, 2, 7, 0);
+      lightFlash(250, 8, 13);
+      lightOnWave(130, 3,7,1);
+    }
+  }
+    
+  //0:15 to 0:30
+  lightOnWave(100, 2, 5, 2);
+  delay(100);
+  
+  lightOn(0, 2, 7);
+  delay(300);
+  lightOnBlue(0, 8, 13);
+  delay(200);
+  lightOff(0, 2, 13);
+  delay(800);
+  
+  lightOnWave(120, 2, 3, 0);
+  lightOnWave(120, 6, 7, 0);
+  delay(250);
+  
+  lightOn(0, 9, 10);
+  delay(150);
+  lightOn(0, 11, 12);
+  delay(200);
+  lightOff(0, 8, 13);
+  lightOn(0, 3, 4);
+  delay(200);
+  lightOn(0, 5, 6);
+  delay(500);
+  lightOff(0, 2, 7);
+  
+  lightOn(0, 2, 3);
+  delay(150);
+  lightOnWave(150, 4, 7, 0);
+  delay(250);
+  lightOff(0, 2, 7);
+  
+  
+  lightOnRed(0, 2, 7, 1);
+  delay(250);
+  lightOff(0, 2, 7);
+  lightOnBlue(0, 7, 1);
+  delay(300);
+  lightOff(0, 2, 7);
+  lightSingle(2, 150);
+  lightSingle(9, 150);
+  lightSingle(4, 150);
+  lightSingle(11, 150);
+  lightSingle(6, 330);
+  lightSingle(13, 300);
+  delay(1300);
+  
+  for(int i = 0; i<=1; i++){
+    lightOnWave(150, 2, 3, 2);
+    lightOnWave(150, 6, 7, 2);
+    lightOn(0, 4, 5);
+    lightOn(0, 10, 11);
+    delay(300);
+    lightOn(0, 2, 13);
+    lightOff(0, 3, 6);
+    lightOff(0, 9, 12);
+    if (i ==0){
+      delay(350);
+      lightOff(0, 2, 13);
+      delay(800);
+    }
+    else {
+      delay(250);
+      lightOff(0, 2, 13);
+    }
+  }
+  
+  lightFlash(250, 10, 11);
+  lightOn(0, 4, 5);
+  delay(250);
+  lightOff(0, 2, 7);
+  lightOnWave(250, 2, 3, 2);
+  lightOnWave(250, 6, 7, 2);
+  lightOn(0, 2, 4);
+  delay(500);
+  lightOn(0, 5, 7);
+  delay(250);
+  lightOff(0, 2, 7);
+  lightOnWave(180, 13, 8, -1);
+    
+  //0:30 to 0:47
+  delay(1350);
+  lightOnWave(180,2, 3, 0);
+  lightSingle(4, 180);
+  lightFlash(350, 11, 13);
+  lightOnWave(200, 7, 4, -1);
+  lightFlash(350, 8, 10);
+  lightOnWave(200,2, 4, 0);
+  lightFlash(350, 11, 13);
+  lightOnWave(150, 7, 4, -1);
+  lightFlash(350, 8, 10);
+  lightFlash(250, 11, 13);
+  lightFlash(250, 8, 10);
+  lightFlash(250, 11, 13);
+  lightFlash(150, 8, 10);
+  delay(350);
+  
+  lightOnWave(225, 2, 7, 0);
+  lightOnRed(0, 8, 13, 1);
+  delay(150);
+  lightOnRed(0, 9, 13, 1);
+  delay(600);
+  lightOff(0, 2, 13);
+  delay(100);
+  
+  lightOnWave(150, 2, 5, 0);
+  lightOnWave(150, 13, 10, -1);
+  delay(200);
+  
+  lightOnWave(150, 2, 3, 0);
+  lightOnWave(150, 10, 11, 0);
+  lightFlash(150, 6, 7);
+  lightFlash(300, 12, 13);
+  lightSingle(2, 150);
+  lightOnWave(150, 3, 3, 2);
+  lightSingle(4, 150);
+  lightOnWave(150, 5, 5, 2);
+  
+  lightOnWave(250, 2, 3, 2);
+  lightFlash(250, 4, 5);
+  lightOnWave(250, 6, 7, 2);
+  lightFlash(200, 10, 11);
+  
+  lightOnWave(65, 2, 13, 0);
+  delay(250);
+  
+  lightFlash(400, 2, 7);
+  lightFlash(350, 8, 13);
+  lightFlash(250, 2, 3);
+  lightFlash(250, 4, 5);
+  lightFlash(200, 12, 13);
+  lightFlash(200, 10, 11);
+  lightFlash(200, 8, 9);
+  delay(1800);
+  
+  //0:47 to 0:55
+  
+  lightOnRand(175,8, 20);
+  lightOnWave(180, 2, 4, 1);
+  lightOnWave(180, 5, 7, 1);
+  lightOnRed(0, 8, 12, 1);
+  delay(1100);
+  lightOff(0, 2, 13);
+  lightOnRed(0, 9, 13, 1);
+  delay(500);
+  lightOff(0, 2, 13);
+  lightOnRed(0, 2, 7, 1);
+  delay(1000);
+  lightOff(0, 2, 13);
+  delay(1300);
+  
+  } //current doall stop
+    
+  //0:55 to 1:06
+  for(int i = 0; i<=3; i++) {
+    lightOnWave(250, 2, 7, 0);
+    if(i < 3) {
+    	lightFlash(300, 8, 13);
+    	delay(200);
+    }
+    else {
+    	lightFlash(1000, 2, 13);
+    }
+  }
+  delay(10000);
+}
