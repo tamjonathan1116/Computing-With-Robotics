@@ -1,0 +1,57 @@
+int switchPin = 2;
+int ledPins[] = {3, 4, 5, 6};
+int lightmeter = 5;
+int brightness = 0;
+
+
+void setup() {
+  pinMode(switchPin, INPUT);
+  pinMode(lightmeter, INPUT);
+  pinMode(ledPins[0], OUTPUT);
+  pinMode(ledPins[1], OUTPUT);
+  pinMode(ledPins[2], OUTPUT);
+  pinMode(ledPins[3], OUTPUT);
+  Serial.begin(9600);
+}
+
+float checkBrightness() {
+	brightness = analogRead(lightmeter);
+  	return brightness;
+}
+
+void loop() {
+  	int switchVal;
+	switchVal = digitalRead(switchPin);
+      
+  	if (switchVal == LOW) {
+      if (checkBrightness() < 50) {
+        for(int index = 0; index < 4; index++) {
+          digitalWrite(ledPins[index], HIGH);
+          delay(500);
+          Serial.print("brightness = ");
+          Serial.println(checkBrightness());
+         }
+       }
+       else {
+         Serial.print("Brightness = ");
+         Serial.println(checkBrightness());
+        for(int index = 3; index >=0; index--) {
+          digitalWrite(ledPins[index], LOW);
+          Serial.print("brightness = ");
+          Serial.println(checkBrightness());
+        }
+       }
+    }
+     if (switchVal == HIGH) {
+      for (int i = 0; i <= 3; i+=2) { 
+    	digitalWrite(ledPins[i], HIGH);
+        digitalWrite(ledPins[i+1], HIGH);
+        delay(500);
+      }
+      for (int i = 3; i >= 0; i--) { 
+    	digitalWrite(ledPins[i], LOW);
+        delay(500);
+      }
+      
+    }
+}
